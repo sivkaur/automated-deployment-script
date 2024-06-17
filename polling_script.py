@@ -3,8 +3,8 @@ import mlflow
 from mlflow.tracking import MlflowClient
 import boto3
 
-# Set the MLflow tracking URI to the localhost server
-mlflow.set_tracking_uri("http://127.0.0.1:5001")
+# Set the MLflow tracking URI to the S3 bucket
+mlflow.set_tracking_uri(f"s3://sivleen-mlflow-artifacts")
 
 # Initialize MLflow client
 client = MlflowClient()
