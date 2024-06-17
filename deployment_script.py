@@ -6,7 +6,7 @@ import boto3
 from datetime import datetime
 
 # Set the parameters
-region = 'us-east-1'
+region = 'us-west-2'
 aws_id = '851725217119'
 arn = 'arn:aws:iam::851725217119:role/ml_deployment'
 app_name = 'deployed-model-application'
