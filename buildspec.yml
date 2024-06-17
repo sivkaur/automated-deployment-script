@@ -11,6 +11,19 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 851725217119.dkr.ecr.us-west-2.amazonaws.com
+      - echo Checking if ECR repository exists...
+      - |
+        python - <<EOF
+        import boto3
+        client = boto3.client('ecr', region_name='us-west-2')
+        repository_name = 'mlflow-tracking-server'
+        try:
+            response = client.describe_repositories(repositoryNames=[repository_name])
+            print(f"Repository '{repository_name}' already exists.")
+        except client.exceptions.RepositoryNotFoundException:
+            response = client.create_repository(repositoryName=repository_name)
+            print(f"Created repository '{repository_name}'.")
+        EOF
   build:
     commands:
       - echo Build started on `date`
